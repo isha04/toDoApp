@@ -19,7 +19,8 @@ class createTask: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //pickDate()
+        taskToEnter.delegate = self
+        datePickerField.delegate = self
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
