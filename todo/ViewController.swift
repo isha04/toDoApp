@@ -11,15 +11,26 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var taskTable: UITableView!
-    var retrievedTasks = tasks
+    
+    var retrievedTasks = [[String: Any]]()
+    
+    
+    func retrieveTasks() {
+        if let loadedTasks = UserDefaults.standard.array(forKey: "mytasks") as? [[String: Any]] {
+            retrievedTasks = loadedTasks
+        }
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        taskTable.reloadData()
+        retrieveTasks()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.taskTable.reloadData()
+        retrieveTasks()
+        taskTable.reloadData()
+        print("view will appear's \(retrievedTasks.count)")
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -36,6 +47,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let item = retrievedTasks[indexPath.row]
         cell.titleLabel?.text = item["taskTitle"] as? String
         cell.dueDateLabel?.text = item["dueDate"] as? String
+        if item["status"] as? Bool == true {
+           cell.accessoryType = UITableViewCellAccessoryType.checkmark
+            print("status is true")
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryType.none
+        }
         return cell
     }
     
