@@ -10,6 +10,7 @@
 		4C3475401FF61AA100CF2953 /* tableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C34753F1FF61AA100CF2953 /* tableCells.swift */; };
 		4C473FDB1FF624AE00631A58 /* createTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C473FDA1FF624AE00631A58 /* createTask.swift */; };
 		4C6F893F1FF52DD900534847 /* tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F893E1FF52DD900534847 /* tasks.swift */; };
+		4CDC96E91FFE541F002F3614 /* UYLNotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDC96E81FFE541F002F3614 /* UYLNotificationDelegate.swift */; };
 		4CDE49F21FF4D608004991AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE49F11FF4D608004991AF /* AppDelegate.swift */; };
 		4CDE49F41FF4D608004991AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE49F31FF4D608004991AF /* ViewController.swift */; };
 		4CDE49F71FF4D608004991AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CDE49F51FF4D608004991AF /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 		4C34753F1FF61AA100CF2953 /* tableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tableCells.swift; sourceTree = "<group>"; };
 		4C473FDA1FF624AE00631A58 /* createTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = createTask.swift; sourceTree = "<group>"; };
 		4C6F893E1FF52DD900534847 /* tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tasks.swift; sourceTree = "<group>"; };
+		4CDC96E81FFE541F002F3614 /* UYLNotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UYLNotificationDelegate.swift; sourceTree = "<group>"; };
 		4CDE49EE1FF4D608004991AF /* todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = todo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CDE49F11FF4D608004991AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CDE49F31FF4D608004991AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 			children = (
 				4CDE49F11FF4D608004991AF /* AppDelegate.swift */,
 				4CDE49F31FF4D608004991AF /* ViewController.swift */,
+				4CDC96E81FFE541F002F3614 /* UYLNotificationDelegate.swift */,
 				4C34753F1FF61AA100CF2953 /* tableCells.swift */,
 				4CDE49F51FF4D608004991AF /* Main.storyboard */,
 				4C473FDA1FF624AE00631A58 /* createTask.swift */,
@@ -147,6 +150,7 @@
 			files = (
 				4CDE49F41FF4D608004991AF /* ViewController.swift in Sources */,
 				4CDE49F21FF4D608004991AF /* AppDelegate.swift in Sources */,
+				4CDC96E91FFE541F002F3614 /* UYLNotificationDelegate.swift in Sources */,
 				4C3475401FF61AA100CF2953 /* tableCells.swift in Sources */,
 				4C473FDB1FF624AE00631A58 /* createTask.swift in Sources */,
 				4C6F893F1FF52DD900534847 /* tasks.swift in Sources */,

@@ -27,14 +27,29 @@ struct taskToDo {
         return data as NSDictionary
     }
 }
-
 var tasks = [[String: Any]]()
 
+func retrieveTasks() {
+    if (UserDefaults.standard.array(forKey: "mytasks") as? [[String: Any]]) != nil {
+        tasks = (UserDefaults.standard.array(forKey: "mytasks") as? [[String: Any]])!
+    }
+}
 
-
-func saveTask(taskTitle: String, dueDate: String, status: Bool) {
+func saveNewTask(taskTitle: String, dueDate: String, status: Bool) {
     let atask = taskToDo(taskTitle: taskTitle , dueDate: dueDate, status: status)
-    tasks.append(atask.data)
-    UserDefaults.standard.set(tasks, forKey: "mytasks")
+    tasks.insert(atask.data, at: 0)
+    saveTask (inputArray: tasks)
+}
+
+func saveTask (inputArray: [[String: Any]]) {
+    UserDefaults.standard.set(inputArray, forKey: "mytasks")
     UserDefaults.standard.synchronize()
+}
+
+func updateTask (newData: [String: Any], oldArray: inout [[String: Any]], index: Int) {
+  var oldData = oldArray[index]
+    oldData = newData
+    oldArray[index] = oldData
+    saveTask(inputArray: oldArray)
+    
 }

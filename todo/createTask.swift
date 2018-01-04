@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import UserNotifications
 
 class createTask: UIViewController, UITextFieldDelegate {
     
@@ -62,10 +63,46 @@ class createTask: UIViewController, UITextFieldDelegate {
     
     @IBAction func didTapOnSaveButton(_ sender: Any) {
         if taskToEnter.text != "" {
-            saveTask(taskTitle: taskToEnter.text!, dueDate: datePickerField.text!, status: false)
-            self.navigationController?.popViewController(animated: true)
+            saveNewTask(taskTitle: taskToEnter.text!, dueDate: datePickerField.text!, status: false)
+            if datePickerField.text != "" {
+                scheduleLocalNotification()
+            }
         }
+        self.navigationController?.popViewController(animated: true)
     }
-
+    
+    private func scheduleLocalNotification() {
+        //Setting date to trigger notification
+        let date = Date(timeIntervalSinceNow: 20)
+        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+        
+        //Notification Content
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = "Task is due"
+        notificationContent.subtitle = taskToEnter.text!
+        notificationContent.sound = UNNotificationSound.default()
+        
+        //create a new notification request and add it to the notification center
+        let identifier = "To-Do app local notification"
+        let request = UNNotificationRequest(identifier: identifier,
+                                            content: notificationContent, trigger: trigger)
+        let center = UNUserNotificationCenter.current()
+        center.add(request, withCompletionHandler: { (error) in
+            if error != nil {
+                print("something is wrong")
+            }
+        })
+        let snoozeAction = UNNotificationAction(identifier: "Snooze",
+                                                title: "Snooze", options: [])
+        let deleteAction = UNNotificationAction(identifier: "UYLDeleteAction",
+                                                title: "Delete", options: [.destructive])
+        let category = UNNotificationCategory(identifier: "UYLReminderCategory",
+                                              actions: [snoozeAction,deleteAction],
+                                              intentIdentifiers: [], options: [])
+        center.setNotificationCategories([category])
+        notificationContent.categoryIdentifier = "UYLReminderCategory"
+      
+    }
     
 }

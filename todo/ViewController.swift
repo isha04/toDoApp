@@ -7,30 +7,22 @@
 //
 
 import UIKit
+import UserNotifications
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var taskTable: UITableView!
     
-    var retrievedTasks = [[String: Any]]()
-    
-    
-    func retrieveTasks() {
-        if let loadedTasks = UserDefaults.standard.array(forKey: "mytasks") as? [[String: Any]] {
-            retrievedTasks = loadedTasks
-        }
-    }
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         retrieveTasks()
+        taskTable.reloadData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         retrieveTasks()
         taskTable.reloadData()
-        print("view will appear's \(retrievedTasks.count)")
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -38,18 +30,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return retrievedTasks.count
+        return tasks.count
     }
     
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = taskTable.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! tableCells
-        let item = retrievedTasks[indexPath.row]
+        let item = tasks[indexPath.row]
         cell.titleLabel?.text = item["taskTitle"] as? String
         cell.dueDateLabel?.text = item["dueDate"] as? String
         if item["status"] as? Bool == true {
            cell.accessoryType = UITableViewCellAccessoryType.checkmark
-            print("status is true")
         } else {
             cell.accessoryType = UITableViewCellAccessoryType.none
         }
@@ -58,22 +49,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var item = retrievedTasks[indexPath.row]
+        var data = tasks[indexPath.row]
         if taskTable.cellForRow(at: indexPath)?.accessoryType == UITableViewCellAccessoryType.checkmark {
             taskTable.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
-            item["status"] = false
+            data["status"] = false
         } else {
             taskTable.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
-            item["status"] = true
+            data["status"] = true
         }
+        updateTask(newData: data, oldArray: &tasks, index: indexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexpath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            tasks.remove(at: indexpath.row)
+            taskTable.reloadData()
+        }
+        saveTask(inputArray: tasks)
     }
     
     @IBAction func addButton(_ sender: Any) {
         performSegue(withIdentifier: "addTask", sender: sender)
     }
-    
-    
-
 
 }
 
